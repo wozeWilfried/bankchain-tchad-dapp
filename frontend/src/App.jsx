@@ -4,6 +4,8 @@ import { faCoins, faClockRotateLeft, faGauge, faUsers as faUsersIcon } from "@fo
 import { useWallet } from "./hooks/useWallet";
 import { useContract } from "./hooks/useContract";
 import { getStoredAuth, login as authLogin, logout as authLogout } from "./config/auth";
+import { AppProvider } from "./context/AppContext";
+import PinModal from "./components/PinModal";
 import AuthPage from "./components/AuthPage";
 import LoginPage from "./components/LoginPage";
 import ConnectWallet from "./components/ConnectWallet";
@@ -73,6 +75,7 @@ export default function App() {
 
   // Fully authenticated + connected
   return (
+    <AppProvider>
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-amber-50">
       <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-100 shadow-sm">
         <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -119,6 +122,8 @@ export default function App() {
           />
         )}
       </main>
+      <PinModal />
     </div>
+    </AppProvider>
   );
 }

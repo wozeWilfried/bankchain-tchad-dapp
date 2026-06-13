@@ -7,7 +7,10 @@ import {
   faSpinner, faArrowUpRightFromSquare, faBarsProgress,
   faHandHoldingDollar, faGlobeAfrica, faShieldHalved,
   faMoneyBillWave, faChartLine, faUsers, faLandmark,
+  faEye, faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+import { useApp } from "../context/AppContext";
+import { TransferIllustration } from "./Illustrations";
 
 const FCFA = new Intl.NumberFormat("fr-FR", { style: "decimal", maximumFractionDigits: 0 });
 const ETH = (v) => parseFloat(v).toFixed(6);
@@ -20,6 +23,7 @@ const FEATURES = [
 ];
 
 export default function Dashboard({ balance, balanceFcfa, stats, loading, txHash, error, onDeposit, onWithdraw, onTransfer }) {
+  const { balanceVisible, toggleBalance } = useApp();
   const [depositAmt, setDepositAmt] = useState("");
   const [withdrawAmt, setWithdrawAmt] = useState("");
   const [transferAddr, setTransferAddr] = useState("");
@@ -69,15 +73,26 @@ export default function Dashboard({ balance, balanceFcfa, stats, loading, txHash
               <FontAwesomeIcon icon={faWallet} className="mr-2" />
               Solde disponible
             </p>
-            <div className="bg-white/20 rounded-xl px-3 py-1.5 backdrop-blur-sm">
-              <FontAwesomeIcon icon={faCoins} className="mr-1 text-xs" />
-              <span className="text-xs text-white/80">Compte BankChain</span>
+            <div className="flex items-center gap-2">
+              <button onClick={toggleBalance}
+                className="w-8 h-8 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-sm flex items-center justify-center transition"
+                title={balanceVisible ? "Masquer le solde" : "Afficher le solde"}>
+                <FontAwesomeIcon icon={balanceVisible ? faEyeSlash : faEye} className="text-white/80 text-sm" />
+              </button>
+              <div className="bg-white/20 rounded-xl px-3 py-1.5 backdrop-blur-sm">
+                <FontAwesomeIcon icon={faCoins} className="mr-1 text-xs" />
+                <span className="text-xs text-white/80">Compte BankChain</span>
+              </div>
             </div>
           </div>
-          <p className="text-4xl md:text-5xl font-bold tracking-tight mb-1 drop-shadow-sm">{FCFA_FMT(balanceFcfa)}</p>
+          <p className="text-4xl md:text-5xl font-bold tracking-tight mb-1 drop-shadow-sm transition-all duration-300">
+            {balanceVisible ? FCFA_FMT(balanceFcfa) : "•••••••••"}
+          </p>
           <div className="flex items-center gap-2">
             <FontAwesomeIcon icon={faBarsProgress} className="text-emerald-200 text-sm" />
-            <p className="text-emerald-100 text-sm">{ETH(balance)} ETH</p>
+            <p className="text-emerald-100 text-sm transition-all duration-300">
+              {balanceVisible ? `${ETH(balance)} ETH` : "••••••••"}
+            </p>
           </div>
         </div>
       </div>
@@ -102,7 +117,11 @@ export default function Dashboard({ balance, balanceFcfa, stats, loading, txHash
       )}
 
       {/* Actions */}
-      <div className="bg-white/90 rounded-3xl p-6 border border-gray-100 shadow-sm">
+      <div className="bg-white/90 rounded-3xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+        <div className="absolute -right-8 -bottom-8 z-0 opacity-[0.04] pointer-events-none hidden sm:block">
+          <TransferIllustration className="w-[260px] h-[140px]" />
+        </div>
+        <div className="relative z-10">
         <div className="flex gap-1 mb-6 bg-gray-100 p-1.5 rounded-xl">
           {[
             { id: "deposit", label: "Déposer", icon: faArrowDown },
@@ -199,6 +218,7 @@ export default function Dashboard({ balance, balanceFcfa, stats, loading, txHash
             </div>
           </div>
         )}
+      </div>
       </div>
 
       {/* Rate info */}

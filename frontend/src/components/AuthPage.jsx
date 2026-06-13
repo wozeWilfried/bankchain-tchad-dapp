@@ -6,6 +6,7 @@ import {
   faEye, faEyeSlash, faSpinner, faShieldHalved, faCheckCircle,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { WalletIllustration, ShieldIllustration } from "./Illustrations";
 
 export default function AuthPage({ onLogin, error, onConnectMetaMask }) {
   const [email, setEmail] = useState("");
@@ -35,8 +36,19 @@ export default function AuthPage({ onLogin, error, onConnectMetaMask }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-emerald-900 via-emerald-700 to-green-500">
-      <div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-10 max-w-md w-full shadow-2xl fade-in border border-white/20">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-700 to-green-500">
+      {/* Pattern overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.07]"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M50 10H40v10h10V10zM30 10H20v10h10V10zM10 30H0v10h10V30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}>
+      </div>
+      {/* Decorative background illustrations */}
+      <div className="absolute left-0 bottom-0 z-0 opacity-[0.08] pointer-events-none hidden lg:block">
+        <WalletIllustration className="w-[400px] h-[240px]" />
+      </div>
+      <div className="absolute right-0 top-0 z-0 opacity-[0.06] pointer-events-none hidden lg:block scale-x-[-1]">
+        <ShieldIllustration className="w-[240px] h-[280px]" />
+      </div>
+      <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-10 max-w-md w-full shadow-2xl fade-in border border-white/20">
         <div className="text-center mb-6 sm:mb-8">
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-emerald-500 to-green-400 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
             <FontAwesomeIcon icon={faCoins} className="text-white text-2xl sm:text-3xl" />

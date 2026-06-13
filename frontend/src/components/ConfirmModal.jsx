@@ -10,8 +10,8 @@ export default function ConfirmModal({ open, title, message, confirmLabel, cance
   const isDanger = variant === "danger";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay" onClick={onCancel}>
-      <div className="relative bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl fade-in border border-gray-100" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 grid place-items-center p-4 modal-overlay" onClick={onCancel}>
+      <div className="relative bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl fade-in border border-gray-100 mx-auto" onClick={(e) => e.stopPropagation()}>
         {/* Icon */}
         <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 border ${
           isDanger ? "bg-red-50 border-red-100" : "bg-amber-50 border-amber-100"
