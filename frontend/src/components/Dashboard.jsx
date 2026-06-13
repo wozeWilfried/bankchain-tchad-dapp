@@ -5,7 +5,7 @@ import {
   faWallet, faArrowRight, faExchangeAlt, faCircleCheck,
   faTriangleExclamation, faClose, faCircleInfo,
   faSpinner, faArrowUpRightFromSquare, faBarsProgress,
-  faHandHoldingDollar, faGlobeAfrica, faShieldHalved, faBolt,
+  faHandHoldingDollar, faGlobeAfrica, faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
 
 const FCFA_FORMAT = new Intl.NumberFormat("fr-FR", { style: "decimal", maximumFractionDigits: 0 });
@@ -14,7 +14,7 @@ const ETH_FORMAT = (v) => parseFloat(v).toFixed(6);
 const FEATURES = [
   { icon: faGlobeAfrica, text: "Leader africain de la fintech blockchain" },
   { icon: faShieldHalved, text: "Transactions sécurisées par Ethereum" },
-  { icon: faBolt, text: "Transferts instantanés en FCFA" },
+  { icon: null, text: "Transferts d'argent instantanés en FCFA" },
 ];
 
 export default function Dashboard({ balance, balanceFcfa, stats, loading, txHash, error, onDeposit, onWithdraw, onTransfer }) {
@@ -98,7 +98,8 @@ export default function Dashboard({ balance, balanceFcfa, stats, loading, txHash
             <div className="space-y-2">
               {FEATURES.map((f, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={f.icon} className="text-amber-600 w-5" />
+                  {f.icon && <FontAwesomeIcon icon={f.icon} className="text-amber-600 w-5" />}
+                  {!f.icon && <span className="w-5" />}
                   <span className="text-sm text-amber-800">{f.text}</span>
                 </div>
               ))}
