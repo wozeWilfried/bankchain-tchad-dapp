@@ -8,3 +8,4 @@ frontend/.env.local
 backend/node_modules/
 backend/.env
 backend/prisma/dev.db
+*.log
