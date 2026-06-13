@@ -1,6 +1,7 @@
 export const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 export const CHAIN_ID = parseInt(import.meta.env.VITE_CHAIN_ID);
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+export const ETH_TO_FCFA = 4000;
 
 export const CONTRACT_ABI = [
   "function getBalance(address user) view returns (uint256)",
