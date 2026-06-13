@@ -7,6 +7,8 @@ const express  = require("express");
 const cors     = require("cors");
 const { startIndexer } = require("./indexer");
 const transactionsRouter = require("./routes/transactions");
+const authRouter = require("./routes/auth");
+const usersRouter = require("./routes/users");
 
 const app  = express();
 const PORT = process.env.PORT || 3001;
@@ -14,7 +16,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({ origin: ["http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5173", "http://127.0.0.1:5174"] }));
 app.use(express.json());
 
+app.use("/api/auth", authRouter);
 app.use("/api/transactions", transactionsRouter);
+app.use("/api/users", usersRouter);
 
 app.get("/api/health", (req, res) => {
   res.json({

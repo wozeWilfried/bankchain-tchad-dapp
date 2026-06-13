@@ -36,7 +36,7 @@ export function useWallet() {
     setError(null);
     if (!window.ethereum) {
       setError("MetaMask non detecte. Installe MetaMask : https://metamask.io");
-      return;
+      throw new Error("MetaMask non detecte");
     }
     try {
       const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -52,7 +52,7 @@ export function useWallet() {
           });
         } catch {
           setError("Passe sur le reseau Sepolia dans MetaMask");
-          return;
+          throw new Error("Mauvais reseau");
         }
       }
 
@@ -61,7 +61,9 @@ export function useWallet() {
       setAccount(accounts[0]);
       setChainId(Number(network.chainId));
     } catch (err) {
-      setError(err.message || "Connexion refusee");
+      const msg = err.message || "Connexion refusee";
+      setError(msg);
+      throw err;
     }
   }, []);
 

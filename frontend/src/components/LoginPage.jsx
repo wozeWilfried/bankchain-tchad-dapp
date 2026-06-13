@@ -1,11 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins, faShieldHalved, faArrowRightToBracket, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCoins, faShieldHalved, faArrowRightToBracket, faCheckCircle, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faMeta } from "@fortawesome/free-brands-svg-icons";
 
-export default function LoginPage({ onConnect, error }) {
+export default function LoginPage({ onConnect, error, onBack }) {
   return (
     <div className="min-h-screen hero-gradient flex items-center justify-center p-4">
       <div className="glass-card rounded-3xl p-8 md:p-12 max-w-md w-full fade-in">
+        {onBack && (
+          <button onClick={onBack} className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-emerald-600 mb-4 transition">
+            <FontAwesomeIcon icon={faArrowLeft} className="text-xs" />
+            Changer de compte
+          </button>
+        )}
         <div className="text-center mb-8">
           <div className="w-20 h-20 bank-gradient rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg" style={{ boxShadow: '0 8px 24px rgba(5,150,105,0.35)' }}>
             <FontAwesomeIcon icon={faCoins} className="text-white text-3xl" />

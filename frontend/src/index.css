@@ -78,6 +78,10 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.stat-card {
+  @apply bg-white/80 rounded-2xl p-4 border border-gray-100 shadow-sm;
+}
+
 .pulse-dot {
   width: 8px;
   height: 8px;
